@@ -1,0 +1,36 @@
+{
+  "name": "atharva-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/archivo-black": "^5.1.0",
+    "@fontsource/gochi-hand": "^5.1.0",
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/pixelify-sans": "^5.1.0",
+    "@fontsource/silkscreen": "^5.1.0",
+    "@fontsource/vt323": "^5.1.0",
+    "framer-motion": "^11.11.9",
+    "lenis": "^1.1.14",
+    "mongodb": "^6.10.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.10"
+  },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}
