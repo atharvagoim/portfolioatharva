@@ -26,7 +26,7 @@ export default function About({ settings }) {
       <div className="about-text">
         <Title text="ABOUT ME" align="left" />
         <ScrubText className="about-bio" text={settings.about} />
-        <Reveal y={20} delay={0.1}>
+        <Reveal y={20} delay={0.1} className="about-pill">
           <Pill href={settings.serviceUrl}>{settings.serviceLabel || 'my service website'}</Pill>
         </Reveal>
       </div>
