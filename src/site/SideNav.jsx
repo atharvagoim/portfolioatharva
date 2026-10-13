@@ -4,6 +4,7 @@ import { useLenis } from './fx.jsx';
 export const SECTIONS = [
   { id: 'top', label: 'Start' },
   { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
   { id: 'contact', label: 'Contact' },

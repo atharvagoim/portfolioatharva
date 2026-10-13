@@ -10,7 +10,7 @@ export default function Preloader({ dataReady, onDone }) {
     let raf, start;
     const tick = (t) => {
       start ??= t;
-      const p = Math.min(1, (t - start) / 1300);
+      const p = Math.min(1, (t - start) / 600);
       setPct(Math.round((1 - Math.pow(1 - p, 2)) * 100));
       if (p < 1) raf = requestAnimationFrame(tick);
     };
@@ -20,20 +20,20 @@ export default function Preloader({ dataReady, onDone }) {
 
   useEffect(() => {
     if (pct >= 100 && dataReady && !exit) {
-      const t = setTimeout(() => setExit(true), 150);
+      const t = setTimeout(() => setExit(true), 60);
       return () => clearTimeout(t);
     }
   }, [pct, dataReady, exit]);
 
   useEffect(() => {
-    if (exit) { const t = setTimeout(onDone, 650); return () => clearTimeout(t); }
+    if (exit) { const t = setTimeout(onDone, 400); return () => clearTimeout(t); }
   }, [exit, onDone]);
 
   return (
     <motion.div
       className="preloader"
       animate={exit ? { clipPath: ['inset(0% 0% 0% 0%)', 'inset(49.5% 0% 49.5% 0%)', 'inset(49.5% 50% 49.5% 50%)'] } : {}}
-      transition={{ duration: 0.6, times: [0, 0.6, 1], ease: 'easeInOut' }}
+      transition={{ duration: 0.38, times: [0, 0.6, 1], ease: 'easeInOut' }}
     >
       <img src="/assets/loader.png" alt="" className="spin-steps preloader-spin" />
       <span className="preloader-pct">{String(pct).padStart(3, '0')}%</span>

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLenis } from './fx.jsx';
 import { scrollToId } from './SideNav.jsx';
+import { playKey, preloadKeySounds } from './sounds.js';
 
 const KEYS = ['p', 'o', 'r', 't', 'f', 'o', 'l', 'i', 'o'];
 
@@ -19,12 +20,16 @@ export default function Hero({ started }) {
   useEffect(() => {
     const down = (e) => {
       const k = e.key?.toLowerCase();
-      if (KEYS.includes(k) && !e.target.closest?.('input, textarea')) setPressed((s) => new Set([...s, k]));
+      if (KEYS.includes(k) && !e.target.closest?.('input, textarea')) {
+        if (!e.repeat) playKey(KEYS.indexOf(k));
+        setPressed((s) => new Set([...s, k]));
+      }
     };
     const up = (e) => setPressed((s) => { const n = new Set(s); n.delete(e.key?.toLowerCase()); return n; });
+    window.addEventListener('pointerdown', preloadKeySounds, { once: true });
     window.addEventListener('keydown', down);
     window.addEventListener('keyup', up);
-    return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
+    return () => { window.removeEventListener('pointerdown', preloadKeySounds); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
   }, []);
 
   useEffect(() => {
@@ -53,6 +58,7 @@ export default function Hero({ started }) {
                 animate={pressed.has(k) ? { y: 12, scale: 0.93, filter: 'brightness(1.35)' } : { y: 0, scale: 1, filter: 'brightness(1)' }}
                 whileHover={{ y: 10, scale: 0.95, filter: 'brightness(1.3)' }}
                 whileTap={{ y: 14, scale: 0.9 }}
+                onPointerDown={() => playKey(i)}
                 transition={{ type: 'spring', stiffness: 600, damping: 20 }}
               />
             </motion.div>

@@ -7,6 +7,7 @@ import Preloader from './Preloader.jsx';
 import SideNav from './SideNav.jsx';
 import Hero from './Hero.jsx';
 import About from './About.jsx';
+import Skills from './Skills.jsx';
 import Projects from './Projects.jsx';
 import Experience from './Experience.jsx';
 import Contact from './Contact.jsx';
@@ -60,6 +61,7 @@ export default function Home() {
             <main>
               <Hero started={loaded} />
               <About settings={s} />
+              <Skills />
               <Projects projects={projects} />
               <Experience items={s.experience} />
               <Contact settings={s} />
