@@ -56,13 +56,6 @@ a { color: inherit; }
 .cursor-ring.has-label { background: var(--lime); border-color: var(--lime); mix-blend-mode: normal; }
 .cursor-ring span { font: 700 11px/1 var(--f-px); color: #000; text-transform: lowercase; }
 
-/* ============ preloader ============ */
-.preloader {
-  position: fixed; inset: 0; z-index: 200; background: #000;
-  display: grid; place-content: center; justify-items: center; gap: 18px;
-}
-.preloader-spin { width: clamp(70px, 9vw, 110px); }
-.preloader-pct { font: 400 14px var(--f-px); letter-spacing: 0.2em; color: var(--muted); }
 .spin-steps { animation: spin-steps 1s steps(12) infinite; }
 @keyframes spin-steps { to { transform: rotate(360deg); } }
 
