@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { MotionConfig } from 'framer-motion';
 import Lenis from 'lenis';
 import { api } from '../api.js';
 import { LenisContext } from './fx.jsx';
+import Preloader from './Preloader.jsx';
 import SideNav from './SideNav.jsx';
 import Hero from './Hero.jsx';
 import About from './About.jsx';
@@ -18,6 +19,7 @@ const FALLBACK = {
 
 export default function Home() {
   const [data, setData] = useState(null);
+  const [loaded, setLoaded] = useState(() => new URLSearchParams(location.search).has('noload'));
   const lenisRef = useRef(null);
 
   useEffect(() => {
@@ -35,6 +37,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!loaded) { lenisRef.current?.stop(); document.body.style.overflow = 'hidden'; }
+    else { lenisRef.current?.start(); document.body.style.overflow = ''; }
+  }, [loaded]);
+
+  const done = useCallback(() => { window.scrollTo(0, 0); setLoaded(true); }, []);
+
+  useEffect(() => {
     if (data?.settings?.name) document.title = `${data.settings.name} | Portfolio`;
   }, [data]);
 
@@ -45,11 +54,12 @@ export default function Home() {
     <MotionConfig reducedMotion="user">
       <LenisContext.Provider value={lenisRef}>
         <div className="noise" aria-hidden />
+        {!loaded && <Preloader dataReady={!!data} onDone={done} />}
         {data && (
           <>
             <SideNav />
             <main>
-              <Hero started />
+              <Hero started={loaded} />
               <About settings={s} />
               <Skills />
               <Projects projects={projects} />

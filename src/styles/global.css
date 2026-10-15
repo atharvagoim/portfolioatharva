@@ -39,8 +39,9 @@ a { color: inherit; }
 .noise {
   position: fixed; inset: -50%; z-index: 90; pointer-events: none; opacity: 0.06;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 0.9s steps(6) infinite;
+  animation: grain 0.9s steps(6) infinite; will-change: transform;
 }
+@media (max-width: 900px) { .noise { animation: none; } }
 @keyframes grain {
   0% { transform: translate(0, 0); } 20% { transform: translate(-4%, 3%); } 40% { transform: translate(3%, -5%); }
   60% { transform: translate(-6%, 2%); } 80% { transform: translate(5%, 5%); } 100% { transform: translate(0, 0); }
@@ -56,6 +57,18 @@ a { color: inherit; }
 .cursor-ring.has-label { background: var(--lime); border-color: var(--lime); mix-blend-mode: normal; }
 .cursor-ring span { font: 700 11px/1 var(--f-px); color: #000; text-transform: lowercase; }
 
+/* ============ preloader ============ */
+.preloader { position: fixed; inset: 0; z-index: 200; background: #000; overflow: hidden; }
+.pl-hang { position: absolute; top: 0; left: 50%; width: min(48vw, 210px); margin-left: calc(min(48vw, 210px) / -2); will-change: transform; }
+.pl-swing { position: relative; padding-top: clamp(56px, 12vh, 130px); transform-origin: 55% 0; animation: pl-sway 3.4s ease-in-out 1.1s infinite; will-change: transform; }
+.pl-swing.is-still { animation: none; }
+@keyframes pl-sway { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(3.5deg); } 75% { transform: rotate(-3.5deg); } }
+.pl-thread { position: absolute; left: 55%; top: 0; width: 2px; height: calc(clamp(56px, 12vh, 130px) + 8px); margin-left: -1px; background: #e8e8e8; }
+.pl-spidey { display: block; width: 100%; height: auto; }
+.pl-info { position: absolute; left: 0; right: 0; bottom: clamp(70px, 16vh, 170px); display: grid; justify-items: center; gap: 12px; }
+.pl-spin { width: clamp(40px, 5vw, 52px); }
+.pl-text { margin: 0; text-align: center; font: 400 clamp(14px, 1.3vw, 18px)/1.3 var(--f-pixel); color: #fff; letter-spacing: 0.03em; }
+.pl-pct { font: 400 12px var(--f-px); letter-spacing: 0.2em; color: var(--muted); }
 .spin-steps { animation: spin-steps 1s steps(12) infinite; }
 @keyframes spin-steps { to { transform: rotate(360deg); } }
 
